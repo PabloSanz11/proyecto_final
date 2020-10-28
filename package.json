@@ -4,7 +4,12 @@
   "description": "Final project",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PabloSanz11/proyecto_final.git"
   },
   "keywords": [
     "api",
@@ -13,7 +18,14 @@
   ],
   "author": "Pablo Sanchez",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PabloSanz11/proyecto_final/issues"
+  },
+  "homepage": "https://github.com/PabloSanz11/proyecto_final#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.6"
   }
 }
