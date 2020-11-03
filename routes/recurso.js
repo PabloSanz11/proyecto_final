@@ -2,7 +2,7 @@ const express = require('express');
 const recurso = express.Router();
 const db = require('../config/database');
 
-//<--------- POST--------------->
+//Post
 recurso.post("/", async (req, res, next) =>
 {
     const {pok_name, pok_height, pok_weight, pok_base_experience} = req.body; //Lo que viene de req body en esas variables
@@ -80,7 +80,7 @@ recurso.patch("/:id([0-9]{1,3})", async (req, res, next) =>
 
 recurso.get("/", async (req, res, next) =>
 {
-    const pkmn =  await db.query("SELECT * FROM materias"); //Es el query
+    const pkmn =  await db.query("SELECT * FROM customers"); //Es el query
     return res.status(200).json({code: 200, message: pkmn}); //Solo cuando ya viene en formato json 
 });
 
