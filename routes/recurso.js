@@ -5,21 +5,21 @@ const db = require('../config/database');
 //Post
 recurso.post("/", async (req, res, next) =>
 {
-    const {pok_name, pok_height, pok_weight, pok_base_experience} = req.body; //Lo que viene de req body en esas variables
+    const {f_name, lastname} = req.body; //Lo que viene de req body en esas variables
 
-    if(pok_name && pok_height && pok_weight && pok_base_experience)
+    if(f_name && lastname)
     {
-        let query = "INSERT INTO pokemon (pok_name, pok_height, pok_weight, pok_base_experience)";
-        query += ` VALUES('${pok_name}', ${pok_height}, ${pok_weight}, ${pok_base_experience})`;
+        let query = "INSERT INTO customers (f_name, lastname)";
+        query += ` VALUES('${f_name}', '${lastname}')`;
         
         const rows = await db.query(query);
         
         if(rows.affectedRows == 1)
         {
-            return res.status(201).json({code: 201, message: "Pokemon Insertado correctamente"});
+            return res.status(201).json({code: 201, message: "Customer Insertado correctamente"});
         }
 
-        return res.status(500).json({code: 500, message: "El pokemon no ha sido agregado"});
+        return res.status(500).json({code: 500, message: "El Customer no ha sido agregado"});
     }
 
     return res.status(500).json({code: 500, message: "Campos incompletos"});
@@ -27,7 +27,7 @@ recurso.post("/", async (req, res, next) =>
 
 recurso.delete("/:id([0-9]{1,3})", async (req, res, next) =>
 {
-    const query = `DELETE FROM POKEMON WHERE pok_id =${req.params.id}`;
+    const query = `DELETE FROM customers WHERE pok_id =${req.params.id}`;
 
     const rows = await db.query(query);
 
@@ -95,8 +95,6 @@ recurso.get('/:id([0-9]{1,3})', async (req, res, next) =>
     }  
     
     return res.status(404).send({code: 404, message: "El pokemon no ha sido encontrado"});
-    //(id >= 0 || id <= 150) ? res.status(200).send(pk[req.params.id-1]) : res.status(404).send("El pokemon no ha sido encontrado");
-
 });
 
 recurso.get('/:name([A-Za-z]+)', async (req, res, next) =>
@@ -115,23 +113,6 @@ recurso.get('/:name([A-Za-z]+)', async (req, res, next) =>
     } catch (error) {
         console.log(error);
     }
-    
-    //Es un ciclo donde se pasa un valor, p accede a todos los atributos de la bd [2]
-    /*
-    const pkmn = json(pkmns).filter((p) =>
-    {
-        //Condicion ? si es verdadero : si es falso; [3]
-        return (p.name.toUpperCase() == name.toUpperCase()) && p;
-    });
-
-    //pkmn es un arreglo con sus posiciones
-    if(pkmn.length > 0) 
-    {
-        return res.status(200).json(pkmn);
-    } 
-
-    return res.status(404).send("Pokemon no encontrado");
-    */
 });
 
 module.exports = recurso;
